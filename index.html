@@ -747,7 +747,10 @@
             <option value="6岁">6 岁</option>
         </select>
     </div>
-
+<div style="margin-bottom: 15px;">
+    <label for="visit-date">Preferred Visit Date (预约日期):</label><br>
+    <input type="date" id="visit-date" name="visit-date" required style="width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box;">
+</div>
     <!-- This empty div is where Netlify will inject the reCAPTCHA widget automatically -->
     <div data-netlify-recaptcha="true" style="margin-bottom: 15px;"></div>
 
@@ -821,6 +824,10 @@ phoneInput.addEventListener('input', function (e) {
     // 3. 限制最长显示 13 个字符 (包含破折号)，防止输入过长
     e.target.value = formattedValue.slice(0, 13);
 });
+// 获取当天的系统日期，并转换成 YYYY-MM-DD 格式
+    let today = new Date().toISOString().split('T')[0];
+    // 把这个日期动态设置为 id 为 'visit-date' 的输入框的 min 属性
+    document.getElementById('visit-date').setAttribute('min', today);
     </script>
 </body>
 </html>
