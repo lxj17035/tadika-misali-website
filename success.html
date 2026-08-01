@@ -8,67 +8,117 @@
     <!-- 核心代码：5秒后自动跳转回 index.html -->
     <meta http-equiv="refresh" content="5;url=index.html">
     
+    <!-- 引入 Google Fonts：与主页保持统一的高级圆润感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-color: #D35400;
+            --bg-light: #FFFDF9;
+            --text-main: #4A3525;
+            --shadow-soft: 0 20px 40px rgba(211, 84, 0, 0.08);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFFDF9;
-            color: #5D4037;
+            background-color: var(--bg-light);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            border-top: 8px solid;
+            border-top: 6px solid;
             border-image: linear-gradient(to right, #FFB3BA, #FFDFBA, #FFFFBA, #BAFFC9, #BAE1FF, #E6B3FF) 1;
             text-align: center;
+            position: relative;
+            overflow: hidden; /* 防止氛围光斑溢出屏幕 */
         }
+
+        /* 为成功页面添加高级氛围光斑 (Ambient Glow) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255, 179, 114, 0.3) 0%, rgba(255, 179, 114, 0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -10%; right: -5%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255, 179, 186, 0.35) 0%, rgba(255, 179, 186, 0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+        }
+
         .success-card {
             background: white;
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 179, 114, 0.2);
+            padding: 4rem 3rem;
+            border-radius: 30px; /* 匹配主页的大圆角 */
+            box-shadow: var(--shadow-soft); /* 匹配主页的软阴影 */
             max-width: 500px;
             width: 90%;
             border-top: 6px solid #FFDFBA;
             box-sizing: border-box;
+            position: relative;
+            z-index: 10; /* 强制悬浮在光斑上方 */
         }
+
         h1 {
-            color: #D35400;
-            font-size: 2rem;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            font-weight: 800;
             margin-bottom: 10px;
         }
+
         p {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 20px;
+            font-size: 1.15rem;
+            color: #7A5C43;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.8;
         }
+
         .countdown {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #999;
-            margin-top: 30px;
+            margin-top: 35px;
+            font-weight: 700;
         }
+
+        /* 按钮质感升级：圆润、渐变、拟物悬浮 */
         .btn-back {
             display: inline-block;
-            background-color: #D35400;
+            background: linear-gradient(135deg, #D35400 0%, #E67E22 100%);
             color: white;
-            padding: 12px 25px;
+            padding: 14px 32px;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 15px rgba(211, 84, 0, 0.2);
         }
+
         .btn-back:hover {
-            background-color: #ba4a00;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(211, 84, 0, 0.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 20px rgba(211, 84, 0, 0.3);
         }
     </style>
 </head>
 <body>
 
     <div class="success-card">
-        <h1 style="font-size: 4rem; margin: 0;">✅</h1>
+        <h1 style="font-size: 4.5rem; margin: 0; line-height: 1.2;">✅</h1>
         <h1>预约提交成功！</h1>
         <p>感谢您的预约，院长将会在近期内通过电话或 WhatsApp 与您联系。</p>
         
@@ -79,7 +129,7 @@
         </div>
     </div>
 
-    <!-- 这是一个简单的倒数计时器动画 -->
+    <!-- 简单的倒数计时器动画 -->
     <script>
         let timeLeft = 5;
         const timerElement = document.getElementById('timer');
